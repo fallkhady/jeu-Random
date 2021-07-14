@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="test.css">
+   
+</head>
+<body>
+    <div class="para">
+        <p id="gagner"> bravo!!!!😍</p>
+        <p id="perdu"> perdu!!!!!😭</p>
+    </div>
+
+  
+    <div class="container">
+    <h1>Trouver un nombre!</h1>
+    <p id="t">Choisir un nombre entre 1 et 100. tu as 3 essais</p> 
+    <!-- <div class="vies">
+        <ion-icon name="heart-outline"></ion-icon>
+        <ion-icon name="heart"></ion-icon>
+    </div> -->
+<form id="form">
+    <label for="output" id="text">Commencer le jeu</label> <br>
+    <input type="text" placeholder="Enter votre Nombre" id="output" min="0" max="100" required>
+    <button id="btn" type="submit">play</button>
+    <p id="resul"></p>
+    
+
+</form>
+<button id="rejouer">rejouer</button>
+</div>
+
+<script >  
+    const resul = document.getElementById('resul');
+    const btn = document.getElementById('btn');
+    const rejouer = document.getElementById('rejouer');
+    const divvies = document.querySelector('.vie');
+    const message = document.getElementById('text');
+    const formulaire = document.getElementById('form');
+    const input = document.getElementById('output');
+    const body = document.getElementsByTagName('body')[0];
+    const gagné = document.getElementById('gagner');
+    const perdu = document.getElementById('perdu');
+
+    
+    let recuperer = "";
+    let nbressai = 3;
+
+    const coeurVide =  '<ion-icon name="heart-outline"></ion-icon>';
+    const coeurPlein = '<ion-icon name="heart"></ion-icon>';
+
+    const bgGagné = 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)';
+    const bgPerdu = 'linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)';
+    const bgnormal = 'linear-gradient(to top, #30cfd0 0%, #330867 100%)';
+
+
+
+    const randomNumber = Math.floor(Math.random() * 100) +1;
+    
+ //    let vies = totalvies;
+     console.log(randomNumber);
+    
+
+    formulaire.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        nbressai = nbressai - 1;
+
+        const valeurInput = parseInt(output.value);
+
+        if(valeurInput < 0 || valeurInput > 100  ) return message.textContent = `Le nombre doit etre compris entre 1 et 100`;
+        if(valeurInput === randomNumber){
+            message.textContent = `Bravo !!! Le nombre était bien😍  ${randomNumber}`;
+            body.style.backgroundImage = bgGagné;
+            gagné.style.display = "block";
+
+        }
+
+     if(valeurInput !==randomNumber){
+         if(valeurInput < randomNumber){
+             message.textContent = `${valeurInput}  est plus petit! `;
+    
+         }
+         else if(valeurInput > randomNumber){
+              message.textContent = `${valeurInput}  est plus grand!`;
+         }
+
+     }
+
+     if (nbressai < 0) {
+         perdu.style.display = "block";
+         body.style.background = bgPerdu;
+         rejouer.style.display = "block";
+         formulaire.style.display = "none";
+     }
+
+     recuperer  = recuperer + valeurInput + " ";
+     resul.textContent = `vos tests sont ${recuperer} `  ;
+
+    })
+
+   rejouer.onclick = function () {
+     formulaire.style.display = 'block';
+     rejouer.style.display = 'none';
+     nbressai = 3;
+     recuperer  = " ";
+     resul.textContent = `vos tests sont ${recuperer} `  ;
+     message.textContent = `Commencer le jeu`;
+     output.value = '';
+     body.style.background =  bgnormal;
+     perdu.style.display = 'none';
+     
+
+
+   }
+   </script>
+</body>
+</html>
