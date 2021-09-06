@@ -1,2 +1,2 @@
 # projetjava
-calculatrice en javascript
+jeu random     
